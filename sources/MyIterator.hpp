@@ -12,10 +12,10 @@ namespace ariel
     enum iteratorType
     {
         ASC,
-        DESC,
-        PREORDER
+        PRIME,
+        CROSS
     };
-
+    
     template <typename T>
     class MyIterator
     {

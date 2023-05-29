@@ -14,7 +14,7 @@ namespace ariel
     // Main functions
     MyIterator<int> MagicalContainer::AscendingIterator::begin()
     {
-        return MyIterator<int>(&ascendingList[0], ASC);
+        return MyIterator<int>(&ascendingList.front(), ASC);
     }
 
     MyIterator<int> MagicalContainer::AscendingIterator::end()
