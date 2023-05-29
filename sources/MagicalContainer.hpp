@@ -4,6 +4,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <vector>
+#include "MyIterator.hpp"
+#include "MyIterator.cpp"
 
 using namespace std;
 
@@ -13,11 +15,9 @@ namespace ariel
     {
     private:
         vector<int> _container;
+        vector<int> ascendingList;
 
     public:
-        // Constructors
-        MagicalContainer();
-
         // Main functions
         void addElement(int element);
         void removeElement(int element);
@@ -29,14 +29,14 @@ namespace ariel
 
         // Getters
         vector<int> &getContainer() const;
+        vector<int> &getAscendingList() const;
 
         // Iterators
 
         class AscendingIterator
         {
         private:
-            MagicalContainer& _magicalContainer;
-            vector<int> ascendingList;
+            vector<int> &ascendingList;
 
         public:
             // Constructors
@@ -45,8 +45,8 @@ namespace ariel
             ~AscendingIterator();
 
             // Main functions
-            int* begin();
-            int* end();
+            MyIterator<int> begin();
+            MyIterator<int> end();
         };
     };
 }

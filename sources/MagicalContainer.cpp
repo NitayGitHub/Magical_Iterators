@@ -7,19 +7,23 @@
 using namespace std;
 namespace ariel
 {
-    // Constructors and destructors
-    MagicalContainer::MagicalContainer() : _container() {}
-
     // Main Functions
     void MagicalContainer::addElement(int element)
     {
+        // add to container
         _container.push_back(element);
+
+        // add to ascendingList
+        ascendingList.push_back(element);
+        sort(ascendingList.begin(), ascendingList.end());
     }
 
     void MagicalContainer::removeElement(int element)
     {
         vector<int>::iterator index = find(_container.begin(), _container.end(), element);
+        vector<int>::iterator ascIndex = find(ascendingList.begin(), ascendingList.end(), element);
         _container.erase(index);
+        ascendingList.erase(ascIndex);
     }
 
     int MagicalContainer::size() const
@@ -47,5 +51,10 @@ namespace ariel
     vector<int> &MagicalContainer::getContainer() const
     {
         return (vector<int> &)_container;
+    }
+
+    vector<int> &MagicalContainer::getAscendingList() const
+    {
+        return (vector<int> &)ascendingList;
     }
 }
