@@ -3,8 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
-#include <list>
-#include "MyIterator.hpp"
+#include <vector>
 
 using namespace std;
 
@@ -13,7 +12,7 @@ namespace ariel
     class MagicalContainer
     {
     private:
-        list<int> _container;
+        vector<int> _container;
 
     public:
         // Constructors
@@ -24,15 +23,12 @@ namespace ariel
         void removeElement(int element);
         int size() const;
 
-        // Operators
-        bool operator==(const MagicalContainer &other) const;
-
         // Aid functions
         bool isEmpty() const;
         string toString() const;
 
         // Getters
-        list<int> &getContainer() const;
+        vector<int> &getContainer() const;
 
         // Iterators
 
@@ -40,18 +36,17 @@ namespace ariel
         {
         private:
             MagicalContainer& _magicalContainer;
-            MyIterator<int> _ascendingIterator;
+            vector<int> ascendingList;
 
         public:
             // Constructors
             AscendingIterator(MagicalContainer &container);
             AscendingIterator(const AscendingIterator &other);
-            AscendingIterator();
             ~AscendingIterator();
 
             // Main functions
-            MyIterator<int> &begin();
-            MyIterator<int> &end();
+            int* begin();
+            int* end();
         };
     };
 }

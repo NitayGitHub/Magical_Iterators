@@ -1,12 +1,14 @@
 #include "MagicalContainer.hpp"
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
+#include <vector>
 #include <cmath>
 using namespace std;
 namespace ariel
 {
     // Constructors and destructors
-    MagicalContainer::MagicalContainer() : _container(){}
+    MagicalContainer::MagicalContainer() : _container() {}
 
     // Main Functions
     void MagicalContainer::addElement(int element)
@@ -16,7 +18,8 @@ namespace ariel
 
     void MagicalContainer::removeElement(int element)
     {
-        _container.remove(element);
+        vector<int>::iterator index = find(_container.begin(), _container.end(), element);
+        _container.erase(index);
     }
 
     int MagicalContainer::size() const
@@ -24,15 +27,7 @@ namespace ariel
         return _container.size();
     }
 
-    // Operators
-
-    bool MagicalContainer::operator==(const MagicalContainer &other) const
-    {
-        return _container == other._container;
-    }
-
     // Aid Functions
-
     bool MagicalContainer::isEmpty() const
     {
         return _container.empty();
@@ -49,8 +44,8 @@ namespace ariel
     }
 
     // Getters
-    list<int> &MagicalContainer::getContainer() const
+    vector<int> &MagicalContainer::getContainer() const
     {
-        return (list<int> &)_container;
+        return (vector<int> &)_container;
     }
 }

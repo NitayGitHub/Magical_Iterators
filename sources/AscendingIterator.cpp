@@ -1,6 +1,7 @@
 #include "MagicalContainer.hpp"
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 #include <cmath>
 using namespace std;
 
@@ -9,10 +10,11 @@ namespace ariel
     // Constructors
     MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &container) : _magicalContainer(container)
     {
-        list<int> ascendingList;
-        copy(_magicalContainer.getContainer().begin(), _magicalContainer.getContainer().end(), ascendingList.begin());
-        ascendingList.sort();
-        _ascendingIterator = MyIterator<int>(ascendingList.begin(), ascendingList.end());
+        for (auto it = container.getContainer().begin(); it != container.getContainer().end(); ++it)
+        {
+            ascendingList.push_back(*it);
+        }
+        sort(ascendingList.begin(), ascendingList.end());
     }
 
     MagicalContainer::AscendingIterator::AscendingIterator(const AscendingIterator &other) : AscendingIterator(other._magicalContainer) {}
@@ -20,14 +22,14 @@ namespace ariel
     MagicalContainer::AscendingIterator::~AscendingIterator() {}
 
     // Main functions
-    MyIterator<int>& MagicalContainer::AscendingIterator::begin()
+    int *MagicalContainer::AscendingIterator::begin()
     {
-        return _ascendingIterator;
+        return &ascendingList.front();
     }
 
-    MyIterator<int>& MagicalContainer::AscendingIterator::end()
+    int *MagicalContainer::AscendingIterator::end()
     {
-        return _ascendingIterator;
+        return &ascendingList.back() + 1;
     }
 
 }
