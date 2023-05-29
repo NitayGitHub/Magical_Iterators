@@ -44,14 +44,28 @@ namespace ariel
     void MagicalContainer::removeElement(int element)
     {
         vector<int>::iterator index = find(_container.begin(), _container.end(), element);
-        vector<int>::iterator ascIndex = find(ascendingList.begin(), ascendingList.end(), element);
+        _container.erase(index);
+
         if (isPrime(element))
         {
             vector<int>::iterator primeIndex = find(primeList.begin(), primeList.end(), element);
             primeList.erase(primeIndex);
         }
-        _container.erase(index);
+
+        vector<int>::iterator ascIndex = find(ascendingList.begin(), ascendingList.end(), element);
         ascendingList.erase(ascIndex);
+
+        vector<int> temp = GetCrossOrderArray(_container);
+        for (unsigned long i = 0; i < temp.size(); i++)
+        {
+            if (getSideCrossList().at(i) == temp[i])
+            {
+                continue;
+            }
+            getSideCrossList().at(i) = temp[i];
+        }
+        getSideCrossList().pop_back();
+
     }
 
     int MagicalContainer::size() const
