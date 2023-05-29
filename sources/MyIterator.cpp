@@ -8,6 +8,8 @@ namespace ariel
     // Constructors
     template <typename T> MyIterator<T>::MyIterator(_List_const_iterator<T> curr, _List_const_iterator<T> end) : _curr(curr), _end(end) {}
 
+    template <typename T> MyIterator<T>::MyIterator() : MyIterator() {}
+
     template <typename T> MyIterator<T>::~MyIterator() {}
 
     // Operators

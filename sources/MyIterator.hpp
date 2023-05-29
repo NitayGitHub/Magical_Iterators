@@ -19,6 +19,7 @@ namespace ariel
         public:
             // Constructors
             MyIterator(_List_const_iterator<T> curr, _List_const_iterator<T> end);
+            MyIterator();
             ~MyIterator();
 
             // Operators

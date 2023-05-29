@@ -6,7 +6,7 @@ using namespace std;
 namespace ariel
 {
     // Constructors and destructors
-    MagicalContainer::MagicalContainer() : _container() {}
+    MagicalContainer::MagicalContainer() : _container(){}
 
     // Main Functions
     void MagicalContainer::addElement(int element)
