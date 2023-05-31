@@ -19,18 +19,33 @@ namespace ariel
     class MagicalIterator
     {
     protected:
+        vector<int *> &List;
         IteratorType type;
-        int ** _curr;
+        int **_curr;
 
     public:
         // Constructors
-        MagicalIterator(IteratorType type);
-        ~MagicalIterator();
+        MagicalIterator(vector<int *> &List, IteratorType type, int **curr = nullptr);
+        MagicalIterator(const MagicalIterator &other);
+        virtual ~MagicalIterator();
+
+        // Operators
+        MagicalIterator &operator=(const MagicalIterator &other);
+        bool operator==(const MagicalIterator &other) const;
+        bool operator!=(const MagicalIterator &other) const;
+        bool operator<(const MagicalIterator &other) const;
+        bool operator>(const MagicalIterator &other) const;
+        int &operator*() const;
+        MagicalIterator &operator++();
+
+        // Main functions
+        MagicalIterator begin();
+        MagicalIterator end();
 
         // Getters and setters
         IteratorType getType() const;
-        int** getCurr() const;
-        
+        int **getCurr() const;
+        void setCurr(int **curr);
     };
 }
 

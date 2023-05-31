@@ -43,89 +43,29 @@ namespace ariel
 
         class AscendingIterator : public MagicalIterator
         {
-        private:
-            vector<int*> &ascendingList;
-
         public:
             // Constructors
             AscendingIterator(const MagicalContainer &container);
             AscendingIterator(const AscendingIterator &other);
-            AscendingIterator(vector<int*> &ascendingList);
             ~AscendingIterator();
-
-            // Operators
-            AscendingIterator& operator=(const AscendingIterator &other);
-            bool operator==(const MagicalIterator &other) const;
-            bool operator!=(const MagicalIterator &other) const;
-            bool operator<(const MagicalIterator &other) const;
-            bool operator>(const MagicalIterator &other) const;
-            int& operator*() const;
-            AscendingIterator& operator++();
-
-            // Main functions
-            AscendingIterator begin();
-            AscendingIterator end();
-
-            // Getters and setters
-            void setCurr(int** curr);
         };
 
         class PrimeIterator : public MagicalIterator
         {
-        private:
-            vector<int*> &primeList;
-
         public:
             // Constructors
             PrimeIterator(const MagicalContainer &container);
             PrimeIterator(const PrimeIterator &other);
-            PrimeIterator(vector<int*> &primeList);
             ~PrimeIterator();
-
-            // Operators
-            PrimeIterator& operator=(const PrimeIterator &other);
-            bool operator==(const MagicalIterator &other) const;
-            bool operator!=(const MagicalIterator &other) const;
-            bool operator<(const MagicalIterator &other) const;
-            bool operator>(const MagicalIterator &other) const;
-            int& operator*() const;
-            PrimeIterator& operator++();
-
-            // Main functions
-            PrimeIterator begin();
-            PrimeIterator end();
-
-            // Getters and setters
-            void setCurr(int** curr);
         };
 
         class SideCrossIterator : public MagicalIterator
         {
-        private:
-            vector<int*> &sideCrossList;
-
-        public:
+         public:
             // Constructors
             SideCrossIterator(const MagicalContainer &container);
             SideCrossIterator(const SideCrossIterator &other);
-            SideCrossIterator(vector<int*> &sideCrossList);
             ~SideCrossIterator();
-
-            // Operators
-            SideCrossIterator& operator=(const SideCrossIterator &other);
-            bool operator==(const MagicalIterator &other) const;
-            bool operator!=(const MagicalIterator &other) const;
-            bool operator<(const MagicalIterator &other) const;
-            bool operator>(const MagicalIterator &other) const;
-            int& operator*() const;
-            SideCrossIterator& operator++();
-
-            // Main functions
-            SideCrossIterator begin();
-            SideCrossIterator end();
-
-            // Getters and setters
-            void setCurr(int** curr);
         };
     };
 }
