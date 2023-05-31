@@ -10,21 +10,40 @@ namespace ariel
     // Main Functions
     void MagicalContainer::addElement(int element)
     {
+        vector<int *> temp;
+
         // add to container
         _container.push_back(element);
 
         // add to ascendingList
-        ascendingList.push_back(element);
-        sort(ascendingList.begin(), ascendingList.end());
+        temp = getAscendingOrder(_container);
+        for (unsigned long i = 0; i < temp.size(); i++)
+        {
+            if (i + 1 == temp.size())
+            {
+                getAscendingList().push_back(temp[i]);
+                break;
+            }
+            getAscendingList().at(i) = temp[i];
+        }
 
         // add to primeList
         if (isPrime(element))
         {
-            primeList.push_back(element);
+            temp = getPrimeOrder(_container);
+            for (unsigned long i = 0; i < temp.size(); i++)
+            {
+                if (i + 1 == temp.size())
+                {
+                    getPrimeList().push_back(temp[i]);
+                    break;
+                }
+                getPrimeList().at(i) = temp[i];
+            }
         }
 
         // add to sideCrossList
-        vector<int> temp = GetCrossOrderArray(_container);
+        temp = GetCrossOrder(_container);
         for (unsigned long i = 0; i < temp.size(); i++)
         {
             if (i + 1 == temp.size())
@@ -32,49 +51,58 @@ namespace ariel
                 getSideCrossList().push_back(temp[i]);
                 return;
             }
-            if (getSideCrossList().at(i) == temp[i])
-            {
-                continue;
-            }
-
             getSideCrossList().at(i) = temp[i];
         }
     }
 
     void MagicalContainer::removeElement(int element)
     {
+        // remove from container
         vector<int>::iterator index = find(_container.begin(), _container.end(), element);
-        if(index == _container.end())
+        if (index == _container.end())
         {
             throw invalid_argument("Element not found");
         }
         _container.erase(index);
 
+        // remove from primeList
         if (isPrime(element))
         {
-            vector<int>::iterator primeIndex = find(primeList.begin(), primeList.end(), element);
-            primeList.erase(primeIndex);
+            primeList.clear();
+            for (auto it = _container.begin(); it != _container.end(); ++it)
+            {
+                if (isPrime(*it))
+                {
+                    primeList.push_back(&(*it));
+                }
+            }
         }
 
-        vector<int>::iterator ascIndex = find(ascendingList.begin(), ascendingList.end(), element);
-        ascendingList.erase(ascIndex);
+        // remove from ascendingList
+        ascendingList.clear();
+        for (auto it = _container.begin(); it != _container.end(); ++it)
+        {
+            ascendingList.push_back(&(*it));
+        }
+        sort(ascendingList.begin(), ascendingList.end(), [](int *a, int *b)
+             { return *a < *b; });
 
-        if(_container.size() == 0)
+        // remove from sideCrossList
+        if (_container.size() == 0)
         {
             getSideCrossList().clear();
             return;
         }
-        vector<int> temp = GetCrossOrderArray(_container);
+        vector<int *> temp = GetCrossOrder(_container);
         for (unsigned long i = 0; i < temp.size(); i++)
         {
-            if (getSideCrossList().at(i) == temp[i])
+            if (*getSideCrossList().at(i) == *temp[i])
             {
                 continue;
             }
             getSideCrossList().at(i) = temp[i];
         }
         getSideCrossList().pop_back();
-
     }
 
     int MagicalContainer::size() const
@@ -114,22 +142,47 @@ namespace ariel
         return true;
     }
 
-    vector<int> MagicalContainer::GetCrossOrderArray(vector<int> &arr)
+    vector<int *> MagicalContainer::GetCrossOrder(vector<int> &arr)
     {
         unsigned long left = 0;               // Pointer starting from the beginning
         unsigned long right = arr.size() - 1; // Pointer starting from the end
 
-        vector<int> result;
+        vector<int *> result;
 
         while (left <= right)
         {
-            result.push_back(arr[left++]); // Select an element from the start
+            result.push_back(&arr[left++]); // Select an element from the start
             if (left <= right)
             {
-                result.push_back(arr[right--]); // Select an element from the end
+                result.push_back(&arr[right--]); // Select an element from the end
             }
         }
 
+        return result;
+    }
+
+    vector<int *> MagicalContainer::getAscendingOrder(vector<int> &arr)
+    {
+        vector<int *> result;
+        for (auto it = arr.begin(); it != arr.end(); ++it)
+        {
+            result.push_back(&(*it));
+        }
+        sort(result.begin(), result.end(), [](int *a, int *b)
+             { return *a < *b; });
+        return result;
+    }
+
+    vector<int *> MagicalContainer::getPrimeOrder(vector<int> &arr)
+    {
+        vector<int *> result;
+        for (auto it = arr.begin(); it != arr.end(); ++it)
+        {
+            if (isPrime(*it))
+            {
+                result.push_back(&(*it));
+            }
+        }
         return result;
     }
 
@@ -139,18 +192,18 @@ namespace ariel
         return (vector<int> &)_container;
     }
 
-    vector<int> &MagicalContainer::getAscendingList() const
+    vector<int *> &MagicalContainer::getAscendingList() const
     {
-        return (vector<int> &)ascendingList;
+        return (vector<int *> &)ascendingList;
     }
 
-    vector<int> &MagicalContainer::getPrimeList() const
+    vector<int *> &MagicalContainer::getPrimeList() const
     {
-        return (vector<int> &)primeList;
+        return (vector<int *> &)primeList;
     }
 
-    vector<int> &MagicalContainer::getSideCrossList() const
+    vector<int *> &MagicalContainer::getSideCrossList() const
     {
-        return (vector<int> &)sideCrossList;
+        return (vector<int *> &)sideCrossList;
     }
 }
